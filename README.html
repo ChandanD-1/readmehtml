@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.dropdown {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.dropdown-content {
+  display: none;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.dropdown input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+.additional-comment {
+  margin-top: 10px;
+}
+
+.button-container {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.copy-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+</style>
+</head>
+<body>
+
+<input type="checkbox" id="dropdownCheckbox" onclick="toggleDropdown('dropdownContent')">
+<label class="dropdown">
+  Dropdown
+  <div class="dropdown-content" id="dropdownContent">
+    <label class="checkbox-label">
+      <input type="checkbox"> Item 1
+    </label>
+    <label class="checkbox-label">
+      <input type="checkbox"> Item 2
+    </label>
+    <label class="checkbox-label">
+      <input type="checkbox"> Item 3
+    </label>
+  </div>
+</label>
+
+<div class="additional-comment">
+  <input type="text" placeholder="Additional Comment">
+</div>
+
+<div class="button-container">
+  <button class="copy-button" onclick="copyContent()">Copy</button>
+</div>
+
+<script>
+function toggleDropdown(id) {
+  var dropdownContent = document.getElementById(id);
+  dropdownContent.style.display = dropdownContent.style.display === "none" ? "block" : "none";
+}
+
+function copyContent() {
+  var copiedText = "";
+  var checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+  checkboxes.forEach(function(checkbox) {
+    copiedText += checkbox.parentNode.innerText + "\n";
+  });
+
+  var additionalComment = document.querySelector('.additional-comment input').value;
+  if (additionalComment.trim() !== "") {
+    copiedText += "Additional Comment: " + additionalComment + "\n";
+  }
+
+  if (copiedText) {
+    navigator.clipboard.writeText(copiedText);
+    alert("Content copied to clipboard:\n\n" + copiedText);
+  }
+}
+</script>
+</body>
+</html>
